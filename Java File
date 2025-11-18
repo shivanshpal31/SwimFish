@@ -1,0 +1,27 @@
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class WeekdayDateGenerator {
+
+    public static void main(String[] args) {
+
+        int year = 2032;                     // year to generate for
+        DayOfWeek dayToFind = DayOfWeek.SATURDAY;   // change to MONDAY, TUESDAY, etc.
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        LocalDate date = LocalDate.of(year, 1, 1);
+
+        // Move to the first required weekday
+        while (date.getDayOfWeek() != dayToFind) {
+            date = date.plusDays(1);
+        }
+
+        // Print all dates of that weekday in the year
+        while (date.getYear() == year) {
+            System.out.println(date.format(formatter));
+            date = date.plusDays(7); // next week
+        }
+    }
+}
